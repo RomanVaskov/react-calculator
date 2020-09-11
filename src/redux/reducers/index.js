@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
-import filterReducer from './filterReducer'
+import personalDataReducer from './personalDataReducer'
 
 const rootReducer = combineReducers({
-  filter: filterReducer,
+  personalData: personalDataReducer,
 })
 
 export default rootReducer
