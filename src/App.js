@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Address from './components/Address'
+import Bank from './components/Bank'
+import BankResult from './components/BankResult'
+import Cart from './components/Cart'
+import Payment from './components/Payment'
+import PersonalData from './components/PersonalData'
+import Product from './components/Product'
+import TextDescriptions from './components/TextDescriptions/TextDescriptions'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <div className='row'>
+        <h2>Калькулятор и шаблонизатор v.3</h2>
+        <div className='col-12'>
+          <PersonalData />
+          <Product />
+          <Cart />
+          <Bank />
+          <Payment />
+          <Address />
+        </div>
+        <BankResult />
+        <TextDescriptions />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
