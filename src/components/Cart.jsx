@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Cart = () => {
+const Cart = React.memo(function Cart({store}) {
+  console.log(store.productInfo)
   return (
     <div className='border'>
       <table className='table'>
@@ -14,84 +15,53 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope='row'>1</th>
-            <td>555912, Холодильник с морозильником Bosch KGF39SQ3AR</td>
-            <td>
-              <input
-                type='button'
-                value='-'
-                className='qtyminus'
-                field='quantity'
-              />
-              <input type='text' name='quantity' value='1' className='qty' />
-              <input
-                type='button'
-                value='+'
-                className='qtyplus'
-                field='quantity'
-              />
-            </td>
-            <td>3008.4</td>
-            <td>
-              <button type='button' className='btn btn-danger'>
-                Удалить
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope='row'>2</th>
-            <td>
-              630145, Зимняя шина Nokian Hakkapeliitta 8 225/55R16 99T (шины)
-            </td>
-            <td>
-              <input
-                type='button'
-                value='-'
-                className='qtyminus'
-                field='quantity'
-              />
-              <input type='text' name='quantity' value='4' className='qty' />
-              <input
-                type='button'
-                value='+'
-                className='qtyplus'
-                field='quantity'
-              />
-            </td>
-            {/* Result */}
-            <td>1234.48</td>
-            <td>
-              <button type='button' className='btn btn-danger'>
-                Удалить
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope='row'>3</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>
-              <button type='button' className='btn btn-danger'>
-                Удалить
-              </button>
-            </td>
-          </tr>
+          {store.productInfo.map((item, index) => {
+            return (
+              <tr key={item.name + index}>
+                <th scope='row'>{index + 1}</th>
+                <td>{item.name}</td>
+                <td>
+                  <button type='button' className='qtyminus'>
+                    -
+                  </button>
+                  <input
+                    type='text'
+                    name='quantity'
+                    value={item.qty}
+                    className='qty'
+                  />
+                  <button type='button' className='qtyplus'>
+                    +
+                  </button>
+                </td>
+                <td>{item.price}</td>
+                <td>
+                  <button
+                    type='button'
+                    className='btn btn-danger'
+                    onClick={() => {
+                      console.log('Item')
+                    }}
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
           <tr>
             <th scope='row'>Итог</th>
             <td></td>
             <td></td>
             <td></td>
-            {/* <!-- сумма --> */}
             <td>
-              <div className='btn btn-warning'>4242.88</div>
+              <div className='btn btn-warning'>3008.4</div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   )
-}
+})
 
 export default Cart

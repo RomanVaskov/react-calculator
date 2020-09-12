@@ -2,12 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setPersonalPhone, setOrderNumber} from '../redux/actions/personalDataAC'
 
-const Personal = React.memo(function Personal({
-  onChangeOrder,
-  onChangePhone,
-  order,
-  phone,
-}) {
+const Personal = ({onChangeOrder, onChangePhone, order, phone}) => {
   return (
     <div className='border'>
       <h5>Поле для ввода телефона и №заказа</h5>
@@ -33,7 +28,7 @@ const Personal = React.memo(function Personal({
       </div>
     </div>
   )
-})
+}
 
 const PersonalData = () => {
   const dispatch = useDispatch()

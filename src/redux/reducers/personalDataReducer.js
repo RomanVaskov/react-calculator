@@ -1,6 +1,6 @@
 const initialState = {
-  phone: 0,
-  order: 0,
+  phone: '',
+  order: '',
 }
 
 const personalDataReducer = (state = initialState, action) => {
