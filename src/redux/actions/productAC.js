@@ -13,7 +13,19 @@ export const setProductQuantity = (qty) => ({
   payload: qty,
 })
 
+let nextProductId = 0
+
 export const setProductInfo = (name, price, qty) => ({
   type: 'SET_PRODUCT_INFO',
-  payload: {name, price, qty},
+  payload: {
+    name,
+    price,
+    qty,
+    id: ++nextProductId
+  },
+})
+
+export const setProductDel = (productId) => ({
+  type: 'SET_PRODUCT_DEL',
+  payload: productId,
 })

@@ -4,7 +4,7 @@ import {
   setProductName,
   setProductPrice,
   setProductQuantity,
-  setProductInfo,
+  setProductInfo
 } from '../redux/actions/productAC'
 
 const Product = ({
@@ -14,7 +14,7 @@ const Product = ({
   onChangeQuantity,
   product,
   price,
-  quantity,
+  quantity
 }) => {
   return (
     <div className='border'>
@@ -52,7 +52,9 @@ const Product = ({
             type='button'
             className='btn btn-success'
             form-control='true'
-            onClick={() => onClick(product, price, quantity)}
+            onClick={() => {
+              onClick(product, price, quantity)
+            }}
           >
             Добавить
           </button>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 // import Address from './components/Address'
 // import Bank from './components/Bank'
 // import BankResult from './components/BankResult'
-import Cart from './components/Cart'
+import CartContainer from './components/Cart/Cart'
 // import Payment from './components/Payment'
 import PersonalData from './components/PersonalData'
 import ProductContainer from './components/Product'
@@ -17,7 +17,7 @@ function App({store}) {
         <div className='col-12'>
           <PersonalData />
           <ProductContainer />
-          <Cart store={store.product} />
+          <CartContainer store={store.product} />
           {/* <Bank /> */}
           {/* <Payment /> */}
           {/* <Address /> */}

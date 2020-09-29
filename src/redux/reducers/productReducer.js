@@ -1,7 +1,7 @@
 const initialState = {
   name: '',
-  price: '',
-  qty: '',
+  price: 0,
+  qty: 0,
   productInfo: [],
 }
 
@@ -16,10 +16,16 @@ const productReducer = (state = initialState, action) => {
     return {...state, qty: action.payload}
   }
   if (action.type === 'SET_PRODUCT_INFO') {
-    let products = action.payload
     return {
       ...state,
-      productInfo: [...state.productInfo, products],
+      productInfo: [...state.productInfo, action.payload],
+    }
+  }
+  if (action.type === 'SET_PRODUCT_DEL') {
+    let productId = action.payload
+    return {
+      ...state,
+      productInfo: state.productInfo.filter((p) => p.id !== productId),
     }
   }
 
