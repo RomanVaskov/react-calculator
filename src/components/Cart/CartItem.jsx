@@ -1,6 +1,15 @@
 import React from 'react'
+import {useDispatch} from "react-redux";
+import {setProductQuantityDec, setProductQuantityInc} from "../../redux/actions/productAC";
 
 const CartItem = ({productInfo, onDeleteProduct}) => {
+    const dispatch = useDispatch()
+    const qtyProductInc = (qty) => {
+        dispatch(setProductQuantityInc(qty))
+    }
+    const qtyProductDec = qty => {
+        dispatch(setProductQuantityDec(qty))
+    }
     return(
         <>
         {productInfo.map((item, index) => {
@@ -9,16 +18,23 @@ const CartItem = ({productInfo, onDeleteProduct}) => {
                     <th scope='row'>{index + 1}</th>
                     <td>{item.name}</td>
                     <td>
-                        <button type='button' className='qtyminus'>
+                        <button
+                            type='button'
+                            className='qtyminus'
+                            onClick={() => qtyProductDec(item.qty)}>
                             -
                         </button>
                         <input
+                            onChange={(e) => e.target.value}
                             type='text'
                             name='quantity'
                             value={item.qty}
                             className='qty'
                         />
-                        <button type='button' className='qtyplus'>
+                        <button
+                            type='button'
+                            className='qtyplus'
+                            onClick={() => qtyProductInc(item.qty)}>
                             +
                         </button>
                     </td>

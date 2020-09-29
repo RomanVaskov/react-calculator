@@ -29,3 +29,13 @@ export const setProductDel = (productId) => ({
   type: 'SET_PRODUCT_DEL',
   payload: productId,
 })
+
+export const setProductQuantityInc = (qty) => ({
+  type: 'SET_PRODUCT_INCREMENT',
+  payload: +qty
+})
+
+export const setProductQuantityDec = (qty) => ({
+  type: 'SET_PRODUCT_DECREMENT',
+  payload: +qty
+})

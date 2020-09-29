@@ -1,7 +1,7 @@
 const initialState = {
   name: '',
-  price: 0,
-  qty: 0,
+  price: '',
+  qty: '',
   productInfo: [],
 }
 
@@ -26,6 +26,32 @@ const productReducer = (state = initialState, action) => {
     return {
       ...state,
       productInfo: state.productInfo.filter((p) => p.id !== productId),
+    }
+  }
+  if (action.type === 'SET_PRODUCT_INCREMENT') {
+    return {
+      ...state,
+      productInfo: state.productInfo.map(item => {
+        return {
+          name: item.name,
+          price: item.price,
+          qty: action.payload + 1,
+          id: item.id
+        }
+      })
+    }
+  }
+  if (action.type === 'SET_PRODUCT_DECREMENT') {
+    return {
+      ...state,
+      productInfo: state.productInfo.map(item => {
+        return {
+          name: item.name,
+          price: item.price,
+          qty: action.payload - 1,
+          id: item.id
+        }
+      })
     }
   }
 
