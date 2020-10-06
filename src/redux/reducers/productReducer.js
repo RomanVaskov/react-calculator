@@ -2,6 +2,7 @@ const initialState = {
   name: '',
   price: '',
   qty: '',
+  total: '',
   productInfo: [],
 }
 
@@ -29,30 +30,36 @@ const productReducer = (state = initialState, action) => {
     }
   }
   if (action.type === 'SET_PRODUCT_INCREMENT') {
-    return {
-      ...state,
-      productInfo: state.productInfo.map(item => {
-        return {
-          name: item.name,
-          price: item.price,
-          qty: action.payload + 1,
-          id: item.id
-        }
-      })
-    }
+    let tempCart = state.productInfo.map((item) => {
+      if (item.id === action.payload.id) {
+        item = {...item, qty: +item.qty + 1, total: +item.price * +item.qty}
+      }
+      return item
+    })
+    return {...state, productInfo: tempCart}
   }
   if (action.type === 'SET_PRODUCT_DECREMENT') {
-    return {
-      ...state,
-      productInfo: state.productInfo.map(item => {
-        return {
-          name: item.name,
-          price: item.price,
-          qty: action.payload - 1,
-          id: item.id
-        }
-      })
-    }
+    let tempItem = state.productInfo.map((item) => {
+      if (item.id === action.payload.id) {
+        item = {...item, qty: +item.qty - 1, total: +item.price * +item.qty}
+      }
+      return item
+    })
+    return {...state, productInfo: tempItem}
+  }
+  if (action.type === 'SET_TOTAL_PRICE') {
+    let {total} = state.productInfo.reduce(
+      (cartTotal, productInfo) => {
+        const {price, qty} = productInfo
+        const itemTotal = price * qty
+
+        cartTotal.total += itemTotal
+        return cartTotal
+      },
+      {total: 0}
+    )
+    total = parseFloat(total.toFixed(2))
+    return {...state, total}
   }
 
   return state

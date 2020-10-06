@@ -1,22 +1,30 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
-import {setProductDel} from '../../redux/actions/productAC'
-import CartItem from "./CartItem";
+import {useDispatch, useSelector} from 'react-redux'
+import {setProductDel, setTotalPrice} from '../../redux/actions/productAC'
+import CartItem from './CartItem'
 
-const CartContainer = ({store}) => {
-  let productInfo = store.productInfo
+const CartContainer = () => {
   const dispatch = useDispatch()
+  const productInfo = useSelector(({product}) => product.productInfo)
+  const total = useSelector(({product}) => product.total)
+  const onDeleteProduct = (id) => dispatch(setProductDel(id))
+  const totalProductPrice = () => dispatch(setTotalPrice())
 
-  const onDeleteProduct = (id) => {
-    dispatch(setProductDel(id))
-  }
+  React.useEffect(() => {
+    totalProductPrice()
+  }, [productInfo, totalProductPrice])
 
-  return <Cart productInfo={productInfo} onDeleteProduct={onDeleteProduct} />
+  return (
+    <Cart
+      productInfo={productInfo}
+      onDeleteProduct={onDeleteProduct}
+      total={total}
+    />
+  )
 }
-
 export default CartContainer
 
-const Cart = React.memo(function Cart({productInfo, onDeleteProduct}) {
+const Cart = React.memo(function Cart({productInfo, onDeleteProduct, total}) {
   return (
     <div className='border'>
       <table className='table'>
@@ -30,14 +38,17 @@ const Cart = React.memo(function Cart({productInfo, onDeleteProduct}) {
           </tr>
         </thead>
         <tbody>
-          <CartItem productInfo={productInfo} onDeleteProduct={onDeleteProduct} />
+          <CartItem
+            productInfo={productInfo}
+            onDeleteProduct={onDeleteProduct}
+          />
           <tr>
             <th scope='row'>Итог</th>
-            <td/>
-            <td/>
-            <td/>
+            <td />
+            <td />
+            <td />
             <td>
-              <div className='btn btn-warning'>3008.4</div>
+              <div className='btn btn-warning'>{total}</div>
             </td>
           </tr>
         </tbody>

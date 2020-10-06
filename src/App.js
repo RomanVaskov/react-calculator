@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 // import Address from './components/Address'
 // import Bank from './components/Bank'
 // import BankResult from './components/BankResult'
@@ -9,7 +8,7 @@ import PersonalData from './components/PersonalData'
 import ProductContainer from './components/Product'
 // import TextDescriptions from './components/TextDescriptions/TextDescriptions'
 
-function App({store}) {
+function App() {
   return (
     <div className='container'>
       <div className='row'>
@@ -17,7 +16,7 @@ function App({store}) {
         <div className='col-12'>
           <PersonalData />
           <ProductContainer />
-          <CartContainer store={store.product} />
+          <CartContainer />
           {/* <Bank /> */}
           {/* <Payment /> */}
           {/* <Address /> */}
@@ -29,8 +28,4 @@ function App({store}) {
   )
 }
 
-const mapStateToProps = (store) => {
-  return {store}
-}
-
-export default connect(mapStateToProps)(App)
+export default App

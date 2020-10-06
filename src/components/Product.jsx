@@ -4,18 +4,22 @@ import {
   setProductName,
   setProductPrice,
   setProductQuantity,
-  setProductInfo
+  setProductInfo,
 } from '../redux/actions/productAC'
 
-const Product = ({
-  onClick,
-  onChangeProduct,
-  onChangePrice,
-  onChangeQuantity,
-  product,
-  price,
-  quantity
-}) => {
+const ProductContainer = () => {
+  const dispatch = useDispatch()
+  const product = useSelector(({product}) => product.name)
+  const price = useSelector(({product}) => product.price)
+  const quantity = useSelector(({product}) => product.qty)
+
+  const onChangeProduct = (name) => dispatch(setProductName(name))
+  const onChangePrice = (price) => dispatch(setProductPrice(price))
+  const onChangeQuantity = (qty) => dispatch(setProductQuantity(qty))
+  const onClick = (name, price, qty) => {
+    dispatch(setProductInfo(name, price, qty))
+  }
+
   return (
     <div className='border'>
       <h5>Форма заполнения товаров</h5>
@@ -61,41 +65,6 @@ const Product = ({
         </div>
       </div>
     </div>
-  )
-}
-
-const ProductContainer = () => {
-  const dispatch = useDispatch()
-  const product = useSelector(({product}) => product.name)
-  const price = useSelector(({product}) => product.price)
-  const quantity = useSelector(({product}) => product.qty)
-
-  const onChangeProduct = (product) => {
-    dispatch(setProductName(product))
-  }
-
-  const onChangePrice = (price) => {
-    dispatch(setProductPrice(price))
-  }
-
-  const onChangeQuantity = (qty) => {
-    dispatch(setProductQuantity(qty))
-  }
-
-  const onClick = (name, price, qty) => {
-    dispatch(setProductInfo(name, price, qty))
-  }
-
-  return (
-    <Product
-      onChangeProduct={onChangeProduct}
-      onChangePrice={onChangePrice}
-      onChangeQuantity={onChangeQuantity}
-      product={product}
-      price={price}
-      quantity={quantity}
-      onClick={onClick}
-    />
   )
 }
 

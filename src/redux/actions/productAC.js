@@ -18,10 +18,11 @@ let nextProductId = 0
 export const setProductInfo = (name, price, qty) => ({
   type: 'SET_PRODUCT_INFO',
   payload: {
-    name,
-    price,
-    qty,
-    id: ++nextProductId
+    name: name,
+    price: price,
+    total: price,
+    qty: qty,
+    id: ++nextProductId,
   },
 })
 
@@ -30,12 +31,16 @@ export const setProductDel = (productId) => ({
   payload: productId,
 })
 
-export const setProductQuantityInc = (qty) => ({
+export const setProductQuantityInc = (id, qty, total) => ({
   type: 'SET_PRODUCT_INCREMENT',
-  payload: +qty
+  payload: {id, qty, total},
 })
 
-export const setProductQuantityDec = (qty) => ({
+export const setProductQuantityDec = (id, qty, total) => ({
   type: 'SET_PRODUCT_DECREMENT',
-  payload: +qty
+  payload: {id, qty, total},
+})
+
+export const setTotalPrice = () => ({
+  type: 'SET_TOTAL_PRICE',
 })
