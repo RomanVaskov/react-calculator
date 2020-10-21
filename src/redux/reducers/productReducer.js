@@ -1,68 +1,79 @@
+import {
+  SET_PRODUCT_DECREMENT,
+  SET_PRODUCT_DEL,
+  SET_PRODUCT_INCREMENT,
+  SET_PRODUCT_INFO,
+  SET_PRODUCT_NAME,
+  SET_PRODUCT_PRICE,
+  SET_PRODUCT_QUANTITY,
+  SET_TOTAL_PRICE,
+} from "../actions/productAction";
+
 const initialState = {
-  name: '',
-  price: '',
-  qty: '',
-  total: '',
+  name: "",
+  price: "",
+  qty: "",
+  total: "",
   productInfo: [],
-}
+};
 
 const productReducer = (state = initialState, action) => {
-  if (action.type === 'SET_PRODUCT_NAME') {
-    return {...state, name: action.payload}
+  if (action.type === SET_PRODUCT_NAME) {
+    return { ...state, name: action.payload };
   }
-  if (action.type === 'SET_PRODUCT_PRICE') {
-    return {...state, price: action.payload}
+  if (action.type === SET_PRODUCT_PRICE) {
+    return { ...state, price: action.payload };
   }
-  if (action.type === 'SET_PRODUCT_QUANTITY') {
-    return {...state, qty: action.payload}
+  if (action.type === SET_PRODUCT_QUANTITY) {
+    return { ...state, qty: action.payload };
   }
-  if (action.type === 'SET_PRODUCT_INFO') {
+  if (action.type === SET_PRODUCT_INFO) {
     return {
       ...state,
       productInfo: [...state.productInfo, action.payload],
-    }
+    };
   }
-  if (action.type === 'SET_PRODUCT_DEL') {
-    let productId = action.payload
+  if (action.type === SET_PRODUCT_DEL) {
+    let productId = action.payload;
     return {
       ...state,
       productInfo: state.productInfo.filter((p) => p.id !== productId),
-    }
+    };
   }
-  if (action.type === 'SET_PRODUCT_INCREMENT') {
+  if (action.type === SET_PRODUCT_INCREMENT) {
     let tempCart = state.productInfo.map((item) => {
       if (item.id === action.payload.id) {
-        item = {...item, qty: +item.qty + 1, total: +item.price * +item.qty}
+        item = { ...item, qty: +item.qty + 1 };
       }
-      return item
-    })
-    return {...state, productInfo: tempCart}
+      return item;
+    });
+    return { ...state, productInfo: tempCart };
   }
-  if (action.type === 'SET_PRODUCT_DECREMENT') {
+  if (action.type === SET_PRODUCT_DECREMENT) {
     let tempItem = state.productInfo.map((item) => {
       if (item.id === action.payload.id) {
-        item = {...item, qty: +item.qty - 1, total: +item.price * +item.qty}
+        item = { ...item, qty: +item.qty - 1 };
       }
-      return item
-    })
-    return {...state, productInfo: tempItem}
+      return item;
+    });
+    return { ...state, productInfo: tempItem };
   }
-  if (action.type === 'SET_TOTAL_PRICE') {
-    let {total} = state.productInfo.reduce(
+  if (action.type === SET_TOTAL_PRICE) {
+    let { total } = state.productInfo.reduce(
       (cartTotal, productInfo) => {
-        const {price, qty} = productInfo
-        const itemTotal = price * qty
+        const { price, qty } = productInfo;
+        const itemTotal = price * qty;
 
-        cartTotal.total += itemTotal
-        return cartTotal
+        cartTotal.total += itemTotal;
+        return cartTotal;
       },
-      {total: 0}
-    )
-    total = parseFloat(total.toFixed(2))
-    return {...state, total}
+      { total: 0 }
+    );
+    total = parseFloat(total.toFixed(2));
+    return { ...state, total };
   }
 
-  return state
-}
+  return state;
+};
 
-export default productReducer
+export default productReducer;

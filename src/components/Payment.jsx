@@ -1,87 +1,71 @@
-import React from 'react'
+import React from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import ru from "date-fns/locale/ru";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setPayment, setPaymentTime } from "../redux/actions/paymentAction";
+
+registerLocale("ru", ru);
 
 const Payment = () => {
+  const [startDate, setStartDate] = React.useState(new Date());
+  const dispatch = useDispatch();
+
+  const payments = useSelector((data) => data.payment.payments);
+
+  let year = JSON.stringify(startDate.getFullYear());
+  let day = JSON.stringify(startDate.getDate());
+  let month = JSON.stringify(startDate.getMonth() + 1);
+  let fullDate = `${day}/${month}/${year}`;
+
+  let hours = JSON.stringify(startDate.getHours());
+  let minutes = JSON.stringify(startDate.getMinutes());
+
+  let fullTime = `${hours}:${minutes === "0" ? minutes + "0" : minutes}`;
+
+  React.useEffect(() => {
+    dispatch(setPaymentTime(fullDate, fullTime));
+  }, [fullDate, fullTime]);
+
+  const onChangePay = (pay) => {
+    dispatch(setPayment(pay));
+  };
+
   return (
-    <div className='border'>
+    <div className="border">
       <h5>Форма способа оплаты и доставки</h5>
-      <div className='row'>
-        <div className='col'>
+      <div className="row">
+        <div className="col">
           <h4>Способ оплаты</h4>
-          <div className='mb-3'>
-            <select className='custom-select' id='bank-select'>
-              <option value='Наличные'>Наличные</option>
-              <option value='Обычная банковская карта'>
-                Обычная банковская карта
-              </option>
-              <option value='Карта рассрочки'>Карта рассрочки</option>
-              <option value='ЕРИП'>ЕРИП</option>
-              <option value='WEBPAY'>Оплата онлайн (WEBPAY)</option>
-              <option value='без первого взноса'>
-                без первоначальго взноса
-              </option>
+          <div className="mb-3">
+            <select
+              className="custom-select"
+              id="bank-select"
+              onChange={(e) => onChangePay(e.target.value)}
+            >
+              {payments.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
-        <div className='col'>
+        <div className="col">
           <h4>Дата</h4>
-          <div className='mb-3'>
-            {/* <!-- Вручную, либо если можно в виде календаря и запиливать данные в шаблон --> */}
-            <div className='mab-5'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Дата'
-                value='04'
-                id=''
-              />
-            </div>
-            <div className='mab-5'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Месяц'
-                value='09'
-                id=''
-              />
-            </div>
-            <div className='mab-5'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Год'
-                value='2020'
-                id=''
-              />
-            </div>
-          </div>
-        </div>
-        <div className='col'>
-          <h4>Время</h4>
-          <div className='mb-3'>
-            {/* <!-- Время С и ПО --> */}
-            <div className='mab-5'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='С'
-                value='9'
-                id=''
-              />
-            </div>
-            <div className='mab-5'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='По'
-                value='21'
-                id=''
-              />
-            </div>
-          </div>
+          <DatePicker
+            dateFormat="dd/MM/yyyy"
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            showTimeSelect
+            locale="ru"
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Payment
+export default Payment;

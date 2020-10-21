@@ -1,49 +1,55 @@
-import React from 'react'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddress, setPickupPoint } from "../redux/actions/addressAction";
 
 const Address = () => {
+  const dispatch = useDispatch();
+  const pickupPoints = useSelector((data) => data.address.pickupPoints);
+  const address = useSelector((data) => data.address.address);
+
+  const onChangePickupPoint = (pickupPoint) =>
+    dispatch(setPickupPoint(pickupPoint));
+
+  const onChangeAddress = (address) => {
+    dispatch(setAddress(address));
+  };
+
   return (
-    <div className='border'>
+    <div className="border">
       <h5>Форма заполнения адреса</h5>
       <form>
-        <div className='row center'>
-          <div className='form-check mr-50 mal-20'>
+        <div className="row center">
+          <div className="form-check mr-50 mal-20">
+            <label className="form-check-label">Адрес:</label>
             <input
-              className='form-check-input'
-              type='radio'
-              name='exampleRadios'
-              id='exampleRadios1'
-              value='АДРЕС'
-              checked
+              onChange={(e) => onChangeAddress(e.target.value)}
+              className="form-control"
+              type="text"
+              name="exampleRadios"
+              id="exampleRadios1"
+              value={address}
             />
-            <label className='form-check-label' for='exampleRadios1'>
-              Адрес
-            </label>
           </div>
-          <div className='form-check'>
-            <input
-              className='form-check-input'
-              type='radio'
-              name='exampleRadios'
-              id='exampleRadios2'
-              value='option2'
-            />
-            <div>
-              <select className='custom-select' id='pvz-select'>
-                {/* <!-- Я хз как здесь правильно сделать чтобы запрогроммировать можно было , при выборе чего-либо. Должно сработать подставить в шаблон (адрес как один valuе1) и второй график в таком виде (value2) г. Барановичи, ул. Брестская, 226/4 (ТЦ «Легион») 
-                      График работы 
-                      пн-пт: 10:00-20:00,
-                      сб-вс: 10:00-19:00.--> */}
-                <option value='13.5'>ПВЗ Гомель</option>
-                <option value='24'>ПВЗС Тростенецкая</option>
-                <option value='29.9'>ПВЗ Минск Уманская</option>
-              </select>
-              {/* <!-- <label className="form-check-label" for="exampleRadios2">ПВЗ</label>--> */}
-            </div>
+          <div className="form-check">
+            <label className="form-check-label">Пункт вывоза:</label>
+            <select
+              className="custom-select"
+              id="pvz-select"
+              onChange={(e) => onChangePickupPoint(e.target.value)}
+            >
+              {pickupPoints.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Address
+export default Address;

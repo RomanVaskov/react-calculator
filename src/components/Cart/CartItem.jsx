@@ -1,44 +1,48 @@
-import React from 'react'
-import {useDispatch} from 'react-redux'
+import React from "react";
+import { useDispatch } from "react-redux";
 import {
   setProductQuantityDec,
   setProductQuantityInc,
-} from '../../redux/actions/productAC'
+} from "../../redux/actions/productAction";
 
-const CartItem = ({productInfo, onDeleteProduct}) => {
-  const dispatch = useDispatch()
-  const increment = (id, qty, total) => {
-    dispatch(setProductQuantityInc(id, qty, total))
-  }
-  const decrement = (id, qty, total) => {
-    dispatch(setProductQuantityDec(id, qty, total))
-  }
+const CartItem = ({ productInfo, onDeleteProduct }) => {
+  const dispatch = useDispatch();
+  const increment = (id, qty) => {
+    dispatch(setProductQuantityInc(id, qty));
+  };
+  const decrement = (id, qty) => {
+    dispatch(setProductQuantityDec(id, qty));
+  };
   return (
     <>
       {productInfo.map((item, index) => {
         return (
           <tr key={item.name + index}>
-            <th scope='row'>{index + 1}</th>
+            <th scope="row">{index + 1}</th>
             <td>{item.name}</td>
             <td>
               <button
-                type='button'
-                className='qty-minus'
-                onClick={() => decrement(item.id, item.qty, item.total)}
+                type="button"
+                className="qty-minus"
+                onClick={() =>
+                  item.qty === 1
+                    ? onDeleteProduct(item.id)
+                    : decrement(item.id, item.qty)
+                }
               >
                 -
               </button>
               <input
                 onChange={(e) => e.target.value}
-                type='text'
-                name='quantity'
+                type="text"
+                name="quantity"
                 value={item.qty}
-                className='qty'
+                className="qty"
               />
               <button
-                type='button'
-                className='qty-plus'
-                onClick={() => increment(item.id, item.qty, item.total)}
+                type="button"
+                className="qty-plus"
+                onClick={() => increment(item.id, item.qty)}
               >
                 +
               </button>
@@ -46,20 +50,20 @@ const CartItem = ({productInfo, onDeleteProduct}) => {
             <td>{item.price}</td>
             <td>
               <button
-                type='button'
-                className='btn btn-danger'
+                type="button"
+                className="btn btn-danger"
                 onClick={() => {
-                  onDeleteProduct(item.id)
+                  onDeleteProduct(item.id);
                 }}
               >
                 Удалить
               </button>
             </td>
           </tr>
-        )
+        );
       })}
     </>
-  )
-}
+  );
+};
 
-export default CartItem
+export default CartItem;
