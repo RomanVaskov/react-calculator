@@ -1,8 +1,8 @@
 import { SET_PAYMENT, SET_PAYMENT_TIME } from "../actions/paymentAction";
 
 const initialState = {
-  date: null,
-  pay: null,
+  date: "ДАТА",
+  pay: "Наличные",
   payments: [
     "Наличные",
     "Обычная банковская карта",

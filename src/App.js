@@ -6,7 +6,7 @@ import ProductContainer from "./components/Product";
 import Address from "./components/Address";
 import Payment from "./components/Payment";
 import BankResult from "./components/BankResult";
-// import TextDescriptions from "./components/TextDescriptions/TextDescriptions";
+import TextDescriptions from "./components/TextDescriptions/TextDescriptions";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Address />
         </div>
         <BankResult />
-        {/*<TextDescriptions />*/}
+        <TextDescriptions />
       </div>
     </div>
   );

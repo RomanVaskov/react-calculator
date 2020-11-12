@@ -2,7 +2,7 @@ import { SET_ADDRESS, SET_PICKUP_POINT } from "../actions/addressAction";
 
 const initialState = {
   address: "Адрес",
-  pickupPoint: null,
+  pickupPoint: "ПВЗ Гомель",
   pickupPoints: ["ПВЗ Гомель", "ПВЗС Тростенецкая", "ПВЗ Минск Уманская"],
 };
 
